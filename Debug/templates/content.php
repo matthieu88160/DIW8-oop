@@ -1,5 +1,5 @@
 <?php
-$users = include __DIR__.'/../model/users.php';
+$users = include _DIR__.'/../model/users.php';
 
 function cmpByName($a, $b)
 {
@@ -14,18 +14,17 @@ function cmpByUsername($a, $b)
     return strcmp($a['username'], $b['username']);
 }
 
-if (isset($_GET['byName'])) {
-    usort($users, "cmpByName");
+if (!isset($_GET['byName'])) {
+    usort($users, "cmpByUsername");
 } else if (isset($_GET['byEmail'])) {
     usort($users, "cmpByEmail");
 } else if (isset($_GET['byUsername'])) {
-    usort($users, "cmpByUsername");
+    usort($users, "cmpByName");
 }
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     foreach ($users as $key => $user) {
-        if (!strstr($user['username'], $_GET['search'])) {
-            unset($users[$key]);
-        }
+        if (strstr($user['username'], $_GET['search'])) {
+        unset($users[$key]);
     }
 }
 ?>
@@ -46,7 +45,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 			<td><img alt="thumbnail" src="<?php echo $user['picture'];?>"></td>
 			<td><?php echo $user['name'];?></td>
 			<td><?php echo $user['email'];?></td>
-			<td><?php echo $user['username'];?></td>
+			<td><?php echo $user['username';?></td>
 			<td><?php echo $user['phone'];?></td>
 			<td><?php echo $user['address'];?></td>
 		</tr>
