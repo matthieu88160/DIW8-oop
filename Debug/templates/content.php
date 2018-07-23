@@ -35,6 +35,15 @@ if (isset($_GET['search']) && !empty($_GET['search']))
 $users = (isset($_GET['search']) && !empty($_GET['search']))
     ? array_filter(array_map(function($user) { if( strstr($user['username'], $_GET['search'])) return $user; }, $users))
     : $users;
+    
+    
+if (isset($_GET['search']) && !empty($_GET['search']))
+    $users = array_filter(array_map(function($element){
+        if (!strstr($element['username'], $_GET['search']))
+            return false;
+            else
+                return $element;
+    }, $users));
 ?>
 <table class="table table-striped">
 	<thead>
