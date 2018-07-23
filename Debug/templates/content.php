@@ -21,13 +21,20 @@ if (isset($_GET['byName'])) {
 } else if (isset($_GET['byUsername'])) {
     usort($users, "cmpByUsername");
 }
-if (isset($_GET['search']) && !empty($_GET['search'])) {
-    foreach ($users as $key => $user) {
-        if (!strstr($user['username'], $_GET['search'])) {
-            unset($users[$key]);
-        }
-    }
-}
+
+if (isset($_GET['search']) && !empty($_GET['search']))
+    $users = array_filter(
+        array_map(
+            function($element){
+                return ((!strstr($element['username'], $_GET['search'])) ? false : $element);
+            },
+            $users
+        )
+    );
+
+$users = (isset($_GET['search']) && !empty($_GET['search']))
+    ? array_filter(array_map(function($user) { if( strstr($user['username'], $_GET['search'])) return $user; }, $users))
+    : $users;
 ?>
 <table class="table table-striped">
 	<thead>
