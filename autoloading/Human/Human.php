@@ -57,7 +57,7 @@ class Human implements HumanInterface
      * 
      * @var Hair
      */
-    private $hair;
+    protected $hair;
     
     private static $allowedGender = ['male', 'female', 'other'];
     
