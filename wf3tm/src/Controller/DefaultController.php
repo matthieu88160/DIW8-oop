@@ -8,7 +8,22 @@ class DefaultController extends Controller
 {
     public function homepage()
     {
-        return new Response('<html><body>Hello world</body></html>');
+        $loggedState = true;
+        $elementList = range(1, 10);
+        
+        return $this->render(
+            'example.html.twig',
+            [
+                'isLogged' => $loggedState,
+                'elements' => []
+            ]
+        );
     }
 }
+
+
+
+
+
+
 
