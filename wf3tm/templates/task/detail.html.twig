@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="ISO-8859-1">
+		<title>Insert title here</title>
+        <link rel="icon" type="image/png" href="/favicon.ico" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
+	</head>
+	<body>
+    
+    
+    	<header>
+    		<div class="jumbotron container-fluid">
+    			<div class="row">
+    				<div class="col-xs-12 col-md-4 col-lg-3 center">
+    					<img class="img-responsive" src="../image/scrum.png">
+    				</div>
+    				<div class="col-xs-12 col-md-8 col-lg-9">
+    					<h1>Project manager</h1>
+    					<div class="container-fluid">
+    						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    							Nullam fringilla nec felis vitae malesuada. Aenean ac commodo
+    							lacus. Aliquam sed auctor turpis. Nam suscipit tellus sit amet
+    							neque scelerisque, ut sagittis lectus dictum.</p>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    
+    		<div class="container-fluid">
+    			<nav class="navbar navbar-default">
+    				<div class="container-fluid">
+    					<!-- Brand and toggle get grouped for better mobile display -->
+    					<div class="navbar-header">
+    						<button type="button" class="navbar-toggle collapsed"
+    							data-toggle="collapse"
+    							data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    							<span class="sr-only">Toggle navigation</span> <span
+    								class="icon-bar"></span> <span class="icon-bar"></span> <span
+    								class="icon-bar"></span>
+    						</button>
+    						<a class="navbar-brand" href="/">Project manager</a>
+    					</div>
+    				</div>
+    				<!-- /.container-fluid -->
+    			</nav>
+    		</div>
+    	</header>
+    
+    	<div class="container">
+    		<p>id : {{ task.getId() }}</p>
+    		<p>created date : {{ task.getCreationDate()|date('Y-m-d H:i:s') }}</p>
+    		<p>priority : {{ task.getPriority() }}</p>
+    		<p>title : {{ task.getTitle() }}</p>
+    		<p>description : {{ task.getDescription()|nl2br() }}</p>
+    		<p>author : {{ task.getAuthor().getName() }}</p>
+    	</div>
+    
+    	<footer>
+    		<div class="jumbotron">
+    			<ul class="nav nav-pills nav-justified">
+    				<li role="presentation" class="active"><a href="/">Home</a></li>
+    			</ul>
+    		</div>
+    	</footer>
+    </body>
+</html>

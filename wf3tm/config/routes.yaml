@@ -10,3 +10,6 @@ task_list:
   path:     /tasks
   controller: App\Controller\TaskController::listTasks
   
+task_detail:
+  path:     /task/detail
+  controller: App\Controller\TaskController::taskDetail

@@ -8,16 +8,7 @@ class DefaultController extends Controller
 {
     public function homepage()
     {
-        $loggedState = true;
-        $elementList = range(1, 10);
-        
-        return $this->render(
-            'example.html.twig',
-            [
-                'isLogged' => $loggedState,
-                'elements' => []
-            ]
-        );
+        return $this->render('default/homepage.html.twig');
     }
 }
 
