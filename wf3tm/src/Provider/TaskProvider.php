@@ -1,14 +1,14 @@
 <?php
 namespace App\Provider;
 
-use App\Entity\Author;
 use App\Entity\Task;
+use App\Entity\User;
 
 class TaskProvider
 {
     public function provideTasks()
     {
-        $author = new Author(1, 'Jerome');
+        $author = new User(1, 'Jerome');
         
         return [
             1 => new Task(

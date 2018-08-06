@@ -19,7 +19,7 @@ class Task
         $id,
         string $title,
         string $description,
-        $author,
+        User $author,
         int $priority
     ) {
         $this->creationDate = new \DateTime();
@@ -46,7 +46,7 @@ class Task
         return $this->description;
     }
 
-    public function getAuthor()
+    public function getAuthor() : User
     {
         return $this->author;
     }
@@ -79,7 +79,7 @@ class Task
         return $this;
     }
 
-    public function setAuthor($author)
+    public function setAuthor(User $author)
     {
         $this->author = $author;
         return $this;

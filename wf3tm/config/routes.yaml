@@ -13,3 +13,7 @@ task_list:
 task_detail:
   path:     /task/detail
   controller: App\Controller\TaskController::taskDetail
+  
+project_list:
+  path:     /projects
+  controller: App\Controller\ProjectController::listProjects

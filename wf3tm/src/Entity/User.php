@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-class Author
+class User
 {
     private $id;
     
