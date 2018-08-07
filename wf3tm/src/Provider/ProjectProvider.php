@@ -15,24 +15,24 @@ class ProjectProvider
     
     public function provideProjects()
     {
-        $responsible = new User(34, 'Eric montecalvo');
+        $responsible = new User('Eric montecalvo');
         $title = 'My awesome project';
         
         $tasks = $this->provider->provideTasks();
         $workers = [];
+        
+        $project = new Project();
+        $project->setResponsible($responsible)
+            ->setTitle($title);
+        
         foreach ($tasks as $task) {
-            if (!isset($workers['developper'])) {
-                $workers['developper'] = [];
-            }
-            
-            if (!in_array($task->getAuthor(), $workers['developper'])) {
-                $workers['developper'][] = $task->getAuthor();
+            $project->addTask($task);
+            if (!in_array($task->getAuthor(), $workers)) {
+                $project->addWorker($task->getAuthor());
+                $workers[] = $task->getAuthor();
             }
         }
-        
-        return [
-            new Project($title, $workers, $responsible, $tasks)
-        ];
+        return [$project];
         
     }
 }
