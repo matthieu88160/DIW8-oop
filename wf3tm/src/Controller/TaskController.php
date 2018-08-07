@@ -4,20 +4,15 @@ namespace App\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
-use App\Provider\TaskProvider;
 use Symfony\Component\HttpFoundation\Response;
 
 class TaskController
 {
-    private $provider;
-    
     private $twig;
     
     public function __construct(
-        TaskProvider $provider,
         \Twig_Environment $twig
     ) {
-        $this->provider = $provider;
         $this->twig = $twig;
     }
     
@@ -26,7 +21,7 @@ class TaskController
         return new Response(
             $this->twig->render(
                 'task/list.html.twig',
-                ['tasks' => $this->provider->provideTasks()]
+                ['tasks' =>  []]
             )
         );
     }
@@ -39,7 +34,7 @@ class TaskController
             throw new NotFoundHttpException();
         }
         
-        $tasks = $this->provider->provideTasks();
+        $tasks = [];
         if (!isset($tasks[$id])) {
             throw new NotFoundHttpException();
         }
