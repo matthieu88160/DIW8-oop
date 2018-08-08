@@ -22,6 +22,10 @@ admin_default:
   path:     /admin
   controller: App\Controller\AdminController::default
 
+admin_shuffle_users:
+  path:     /admin/shuffle
+  controller: App\Controller\AdminController::shuffleUsers
+
 admin_user_list:
   path:     /admin/users.json
   controller: App\Controller\AdminController::jsonUserList

@@ -10,6 +10,26 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class AdminController extends Controller
 {
+    public function shuffleUsers(Request $request)
+    {
+        $users = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(User::class)
+            ->findAll();
+        
+        $users = array_filter($users, function(User $user){return $user->getName() !== 'matthieu';});
+            
+        shuffle($users);
+            
+        return $this->render(
+            'Admin/shuffle.html.twig',
+            [
+                'users' => array_chunk ($users, $request->query->get('length', 2)),
+                'length' => $request->query->get('length', 2)
+            ]
+        );
+    }
+    
     public function default(Request $request)
     {
         $user = new User();
