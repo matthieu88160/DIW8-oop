@@ -5,8 +5,11 @@ namespace App\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Task;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Form\TaskFormType;
 
-class TaskController
+class TaskController extends Controller
 {
     private $twig;
     
@@ -16,12 +19,28 @@ class TaskController
         $this->twig = $twig;
     }
     
-    public function listTasks()
+    public function listTasks(Request $request)
     {
+        $manager = $this->getDoctrine()->getManager();
+        $task = new Task();
+        $form = $this->createForm(TaskFormType::class, $task, ['standalone' => true]);
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($task);
+            $manager->flush();
+            
+            return $this->redirectToRoute('task_list');
+        }
+        
+        
         return new Response(
             $this->twig->render(
                 'task/list.html.twig',
-                ['tasks' =>  []]
+                [
+                    'tasks' =>  $manager->getRepository(Task::class)->findAll(),
+                    'form' => $form->createView()
+                ]
             )
         );
     }
