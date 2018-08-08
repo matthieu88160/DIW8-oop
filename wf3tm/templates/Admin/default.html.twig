@@ -3,7 +3,21 @@
 {% block title %}wf3tm admin{% endblock %}
 
 {% block body %}
-       
+	<div class="container">
+		<div id="userListContainer">
+			<img alt="Loading" src="{{ asset("image/Eclipse-1s-200px.svg") }}" class="center-block"/>
+		</div>
+	
+       {{ form(user_form) }}
+   	</div>
 {% endblock %}
 
 
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+	
+	
+    <script type="text/javascript" src="{{ asset('js/listUser.js') }}"></script>
+{% endblock %}

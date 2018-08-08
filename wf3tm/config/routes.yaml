@@ -17,3 +17,16 @@ task_detail:
 project_list:
   path:     /projects
   controller: App\Controller\ProjectController::listProjects
+
+admin_default:
+  path:     /admin
+  controller: App\Controller\AdminController::default
+
+admin_user_list:
+  path:     /admin/users.json
+  controller: App\Controller\AdminController::jsonUserList
+  options:
+    expose: true
+
+
+
