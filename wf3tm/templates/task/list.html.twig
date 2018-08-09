@@ -33,7 +33,7 @@
         				<td>{{ description }}</td>
         				<td>{{ task.getAuthor().getName() }}</td>
         				<td>{{ task.getPriority() }}</td>
-        				<td><a href="{{ path("task_detail", {id: task.getId()}) }}">Detail</a></td>
+        				<td><a href="{{ path("task_detail", {task: task.getId()}) }}">Detail</a></td>
         			</tr>
         		{% endfor %}
         	</tbody>

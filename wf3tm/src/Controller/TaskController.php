@@ -10,15 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Form\TaskFormType;
 
 class TaskController extends Controller
-{
-    private $twig;
-    
-    public function __construct(
-        \Twig_Environment $twig
-    ) {
-        $this->twig = $twig;
-    }
-    
+{    
     public function listTasks(Request $request)
     {
         $manager = $this->getDoctrine()->getManager();
@@ -34,35 +26,33 @@ class TaskController extends Controller
         }
         
         
-        return new Response(
-            $this->twig->render(
-                'task/list.html.twig',
-                [
-                    'tasks' =>  $manager->getRepository(Task::class)->findAll(),
-                    'form' => $form->createView()
-                ]
-            )
+        return $this->render(
+            'task/list.html.twig',
+            [
+                'tasks' =>  $manager->getRepository(Task::class)->findAll(),
+                'form' => $form->createView()
+            ]
         );
     }
     
-    public function taskDetail(Request $request)
+    public function taskDetail(Task $task, Request $request)
     {
-        $id = $request->query->get('id');
+        $form = $this->createForm(TaskFormType::class, $task, ['standalone' => true]);
+        $form->handleRequest($request);
         
-        if (!$id) {
-            throw new NotFoundHttpException();
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $this->getDoctrine()->getManager()->flush();
+            
+            return $this->redirectToRoute('task_detail', ['task' => $task->getId()]);
         }
         
-        $tasks = [];
-        if (!isset($tasks[$id])) {
-            throw new NotFoundHttpException();
-        }
-        
-        return new Response(
-            $this->twig->render(
-                'task/detail.html.twig',
-                ['task'=>$tasks[$id]]
-            )
+        return $this->render(
+            'task/detail.html.twig',
+            [
+                'task'=>$task,
+                'form' => $form->createView()
+            ]
         );
     }
 }

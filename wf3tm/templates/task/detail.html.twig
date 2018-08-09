@@ -10,5 +10,9 @@
 		<p>title : {{ task.getTitle() }}</p>
 		<p>description : {{ task.getDescription()|nl2br() }}</p>
 		<p>author : {{ task.getAuthor().getName() }}</p>
+		
+		<div class="element-warning mt-5">
+		    {{ form(form) }}
+		</div>
 	</div>
 {% endblock %}
