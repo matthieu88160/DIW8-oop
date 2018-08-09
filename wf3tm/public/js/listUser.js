@@ -43,13 +43,16 @@ function createTableHead()
 function createUserRow(user)
 {
 	let element = document.createElement("tr");
-	for (let property in user) {
-		let cell = document.createElement("td");
-		
-		let content = document.createTextNode(user[property]); 
-		cell.appendChild(content);
-		element.appendChild(cell);
-	}
+	
+	let cellId = document.createElement("td");
+	let contentId = document.createTextNode(user.id); 
+	cellId.appendChild(contentId);
+	element.appendChild(cellId);
+
+	let cellName = document.createElement("td");
+	let contentName = document.createTextNode(user.name); 
+	cellName.appendChild(contentName);
+	element.appendChild(cellName);
 	
 	return element;
 }
