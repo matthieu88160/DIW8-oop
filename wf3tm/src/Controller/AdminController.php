@@ -7,10 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class AdminController extends Controller
 {
-    public function shuffleUsers(Request $request)
+    public function shuffleUsers(Request $request )
     {
         $users = $this->getDoctrine()
             ->getManager()
@@ -30,7 +31,7 @@ class AdminController extends Controller
         );
     }
     
-    public function default(Request $request)
+    public function default(Request $request, EncoderFactoryInterface $factory)
     {
         $user = new User();
         $form = $this->createForm(
@@ -42,6 +43,29 @@ class AdminController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // insert data in database
+            
+            $encoder = $factory->getEncoder(User::class);
+            
+            $encodedPassword = $encoder->encodePassword(
+                $user->getPassword(),
+                $user->getUsername()
+            );
+            $user->setPassword($encodedPassword);
+            
+            $message = new \Swift_Message();
+            $message->setBody(
+                $this->renderView('MailTemplate/AccountCreated.html.twig', ['user' => $user]),
+                'text/html'
+            );
+            $message->addPart(
+                $this->renderView('MailTemplate/AccountCreated.txt.twig', ['user' => $user]),
+                'text/plain'
+            );
+            $message->setFrom('me@me.me')
+                ->setTo('you@you.you');
+            
+            $this->get('mailer')->send($message);
+            
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
             $manager->flush();
